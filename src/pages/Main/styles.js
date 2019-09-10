@@ -22,12 +22,18 @@ export const Form = styled.form`
   }
 `;
 
-export const SubmitButton = styled.button.attrs({
-  type: 'submit'
-})`
+export const SubmitButton = styled.button.attrs(props => ({
+  type: 'submit',
+  disabled: props.loading
+}))`
   background: #7559c1;
   border: 0;
   border-radius: 4px;
   padding: 0 15px;
   margin-left: 10px;
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 `;
