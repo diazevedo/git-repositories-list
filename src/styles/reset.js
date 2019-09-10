@@ -293,4 +293,7 @@ textarea {
     color: #000;
     padding: 0.2em 0;
 }
+a {
+  text-decoration: none;
+}
 `;

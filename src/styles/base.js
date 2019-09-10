@@ -1,10 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
 
   html,body, #root  {
     width: 100%;
-    height: 100%;
   }
 
   html{
@@ -17,6 +19,7 @@ export default createGlobalStyle`
     color: #222;
     font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
+
   }
 
   button {
