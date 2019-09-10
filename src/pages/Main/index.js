@@ -13,9 +13,14 @@ class Main extends Component {
   };
 
   componentDidMount() {
-    const repos = localStorage.getItem('repos');
+    const repos = localStorage.getItem('repositories');
+    if (repos) this.setState({ repositories: JSON.parse(repos) });
+  }
 
-    if (repos) this.setState(JSON.parse(repos));
+  componentDidUpdate(_, prevState) {
+    const { repositories } = this.state;
+    if (prevState.repositories !== repositories)
+      localStorage.setItem('repositories', JSON.stringify(repositories));
   }
 
   handleInputChange = e => {
@@ -47,7 +52,7 @@ class Main extends Component {
     const repositoriesUniques = Array.from(new Set(repositories));
 
     this.setState({
-      repositories: [...repositoriesUniques]
+      repositories: repositoriesUniques
     });
   }
 
