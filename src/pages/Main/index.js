@@ -1,4 +1,18 @@
 import React from 'react';
+import { FaPlus } from 'react-icons/fa';
+import Header from '../../components/Header';
 
-const Main = () => <h1>Teste</h1>;
+import { Container, Form, SubmitButton } from './styles';
+
+const Main = () => (
+  <Container>
+    <Header />
+    <Form>
+      <input type="text" placeholder="Add a repository" />
+      <SubmitButton>
+        <FaPlus color="#FFF" size={22} />
+      </SubmitButton>
+    </Form>
+  </Container>
+);
 export default Main;
