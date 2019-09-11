@@ -68,7 +68,7 @@ export const IssueList = styled.ul`
   }
 
   div {
-    margin-left: 5.5rem;
+    margin-left: 4.6rem;
 
     strong {
       font-size: 1.6rem;
@@ -77,17 +77,18 @@ export const IssueList = styled.ul`
 
     a {
       color: #333;
+      line-height: 1.2;
       &:hover {
         color: #7559c1;
       }
     }
+
     span {
       background: #eee;
       color: #333;
       border-radius: 2px;
       font-size: 1.2rem;
       font-weight: 600;
-      height: 2rem;
       padding: 3px 4px;
       margin-left: 1rem;
     }
