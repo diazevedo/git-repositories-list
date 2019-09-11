@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FaPlus, FaSpinner } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import api from '../../services/api';
 
@@ -81,9 +82,7 @@ class Main extends Component {
           {repositories.map(r => (
             <li key={r}>
               <span>{r}</span>
-              <a href="https://github.com/diazevedo/git-repositories-list/tree/master">
-                Details
-              </a>
+              <Link to={`/repository/${encodeURIComponent(r)}`}>Details</Link>
             </li>
           ))}
         </List>
