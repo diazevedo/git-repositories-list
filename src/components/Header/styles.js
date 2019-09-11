@@ -9,9 +9,4 @@ export const PageHeader = styled.header`
   svg {
     margin-right: 1rem;
   }
-
-  h1 {
-    color: #000;
-    font-size: 2.5rem;
-  }
 `;
