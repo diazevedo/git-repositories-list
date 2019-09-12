@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Loading = styled.div`
   color: #fff;
@@ -112,10 +112,34 @@ export const IssuesState = styled.div`
     height: 4rem;
     background: #fff;
     border-radius: 4px;
+    color: #7559c1;
 
-    &:nth-child(${props => props.selected + 1}) {
+    &:nth-child(${props => props.active + 1}) {
       background: #7559c1;
       color: white;
     }
   }
+`;
+
+export const Pagination = styled(IssuesState).attrs(props => ({
+  type: 'submit',
+  disabled: props.page === 1
+}))`
+  margin-top: 1.5rem;
+
+  button {
+    outline: 0;
+    transition: opacity 0.25s ease-out;
+    border: 0;
+  }
+  ${props =>
+    props.page === 1 &&
+    css`
+      & button:first-child {
+        /* &:disabled { */
+        cursor: not-allowed;
+        opacity: 0.6;
+        /* } */
+      }
+    `}
 `;
