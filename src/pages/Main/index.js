@@ -33,31 +33,31 @@ class Main extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    const { newRepo } = this.state;
-
-    if (newRepo.length === 0) return;
 
     this.setState({ loading: true });
 
     try {
+      const { newRepo, repositories } = this.state;
+
+      if (newRepo.length === 0)
+        throw new Error('Você precisa indicar um repositório');
+
+      const hasRepository = repositories.find(repo => repo === newRepo);
+      if (hasRepository) throw new Error('Duplicated repository.');
+
       const response = await api.get(`/repos/${newRepo}`);
 
-      this.updateRepositories(response.data.full_name);
-      this.setState({ newRepo: '', loading: false, error: null });
-    } catch (badReq) {
-      this.setState({ error: 'true', loading: false });
+      this.setState({
+        repositories: [...repositories, response.data.full_name],
+        newRepo: ''
+      });
+    } catch (error) {
+      console.log(error);
+      this.setState({ error: 'true' });
+    } finally {
+      this.setState({ loading: false });
     }
   };
-
-  updateRepositories(repo) {
-    const { repositories } = this.state;
-    repositories.push(repo);
-    const repositoriesUniques = Array.from(new Set(repositories));
-
-    this.setState({
-      repositories: repositoriesUniques
-    });
-  }
 
   render() {
     const { newRepo, loading, repositories, error } = this.state;
