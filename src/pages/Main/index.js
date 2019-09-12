@@ -11,7 +11,8 @@ class Main extends Component {
   state = {
     newRepo: '',
     repositories: [],
-    loading: false
+    loading: false,
+    error: null
   };
 
   componentDidMount() {
@@ -21,12 +22,13 @@ class Main extends Component {
 
   componentDidUpdate(_, prevState) {
     const { repositories } = this.state;
+
     if (prevState.repositories !== repositories)
       localStorage.setItem('repositories', JSON.stringify(repositories));
   }
 
   handleInputChange = e => {
-    this.setState({ newRepo: e.target.value });
+    this.setState({ newRepo: e.target.value, error: null });
   };
 
   handleSubmit = async e => {
@@ -36,16 +38,15 @@ class Main extends Component {
     if (newRepo.length === 0) return;
 
     this.setState({ loading: true });
+
     try {
       const response = await api.get(`/repos/${newRepo}`);
 
       this.updateRepositories(response.data.full_name);
-      this.setState({ newRepo: '', loading: false });
-    } catch (error) {
-      console.log(error);
+      this.setState({ newRepo: '', loading: false, error: null });
+    } catch (badReq) {
+      this.setState({ error: 'true', loading: false });
     }
-
-    this.setState({ newRepo: '', loading: false });
   };
 
   updateRepositories(repo) {
@@ -59,12 +60,12 @@ class Main extends Component {
   }
 
   render() {
-    const { newRepo, loading, repositories } = this.state;
+    const { newRepo, loading, repositories, error } = this.state;
 
     return (
       <Container>
         <Header />
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} error={error}>
           <input
             type="text"
             placeholder="Add a repository"
